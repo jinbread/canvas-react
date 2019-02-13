@@ -5,10 +5,19 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      speed: 250
+      speed: 250,
+      x: 0,
+      y: 0
     }
 
     this.handleChange = this.handleChange.bind(this)
+  }
+
+  _onMouseMove(e) {
+    this.setState({ 
+      x: e.nativeEvent.offsetX, 
+      y: e.nativeEvent.offsetY 
+    });
   }
 
   componentDidMount() {
@@ -50,9 +59,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App"  onMouseMove={this._onMouseMove.bind(this)}>
         <header className="App-header">
           <div>
+            <p>
+              {this.state.x} {this.state.y}
+            </p>
             <canvas 
               ref="canvas" 
               width={this.state.speed} 
